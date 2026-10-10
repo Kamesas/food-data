@@ -1,0 +1,94 @@
+// Builds dist/foods.en.json from the two USDA FoodData Central files.
+// Usage: node scripts/build-foods.mjs <sr-legacy.json> <fndds.json> <out-dir>
+import fs from "node:fs";
+import path from "node:path";
+
+const [srPath, fnddsPath, outDir] = process.argv.slice(2);
+
+if (!srPath || !fnddsPath || !outDir) {
+  console.error("Usage: node scripts/build-foods.mjs <sr-legacy.json> <fndds.json> <out-dir>");
+  process.exit(1);
+}
+
+// USDA nutrient ids for each value, per 100 g. Omega-3 is EPA + DHA only.
+const NUTRIENT_IDS = {
+  calories: 1008,
+  protein: 1003,
+  fat: 1004,
+  carb: 1005,
+  fiber: 1079,
+  iron: 1089,
+  magnesium: 1090,
+  calcium: 1087,
+  vitaminD: 1114,
+};
+const EPA_ID = 1278;
+const DHA_ID = 1272;
+const GRAMS_TO_MILLIGRAMS = 1000;
+
+const KEYS = [...Object.keys(NUTRIENT_IDS), "omega3"];
+
+const readFoods = (filePath, listKey) =>
+  JSON.parse(fs.readFileSync(filePath, "utf8"))[listKey];
+
+const roundValue = (value) => Math.round(value * 100) / 100;
+
+// A missing value is null, never 0. A 0 from USDA means a real 0.
+const toAmounts = (food) =>
+  new Map(
+    food.foodNutrients
+      .filter((item) => typeof item.amount === "number")
+      .map((item) => [item.nutrient.id, item.amount]),
+  );
+
+const toOmega3 = (amounts) => {
+  const epa = amounts.get(EPA_ID);
+  const dha = amounts.get(DHA_ID);
+
+  if (epa === undefined && dha === undefined) return null;
+
+  return roundValue(((epa ?? 0) + (dha ?? 0)) * GRAMS_TO_MILLIGRAMS);
+};
+
+const toRow = (food, type) => {
+  const amounts = toAmounts(food);
+  const row = { id: food.fdcId, type, name: food.description.trim() };
+
+  for (const [key, id] of Object.entries(NUTRIENT_IDS)) {
+    const amount = amounts.get(id);
+    row[key] = amount === undefined ? null : roundValue(amount);
+  }
+  row.omega3 = toOmega3(amounts);
+
+  return row;
+};
+
+const hasNutrients = (food) => food.foodNutrients?.length > 0;
+
+const fnddsFoods = readFoods(fnddsPath, "SurveyFoods").filter(hasNutrients);
+const srFoods = readFoods(srPath, "SRLegacyFoods").filter(hasNutrients);
+
+// The same name in both sets is one food. FNDDS has no missing values, so its copy stays.
+const fnddsNames = new Set(fnddsFoods.map((food) => food.description.toLowerCase()));
+const srUnique = srFoods.filter((food) => !fnddsNames.has(food.description.toLowerCase()));
+
+const rows = [
+  ...srUnique.map((food) => toRow(food, "sr")),
+  ...fnddsFoods.map((food) => toRow(food, "fndds")),
+].sort((a, b) => a.id - b.id);
+
+// One food per line keeps the file small and its git diffs readable.
+const json = `[\n${rows.map((row) => JSON.stringify(row)).join(",\n")}\n]\n`;
+
+fs.mkdirSync(outDir, { recursive: true });
+const outPath = path.join(outDir, "foods.en.json");
+fs.writeFileSync(outPath, json);
+
+console.log(`Wrote ${outPath}: ${rows.length} foods`);
+console.log(`  sr: ${srUnique.length} (${srFoods.length - srUnique.length} duplicates of FNDDS skipped)`);
+console.log(`  fndds: ${fnddsFoods.length}`);
+console.log("Foods with null:");
+for (const key of KEYS) {
+  const nullCount = rows.filter((row) => row[key] === null).length;
+  console.log(`  ${key.padEnd(10)} ${nullCount}`);
+}
