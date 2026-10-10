@@ -1,0 +1,7 @@
+{
+  "name": "food-data",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Food list with nutrients per 100 g, built from USDA FoodData Central",
+  "type": "module"
+}

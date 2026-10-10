@@ -1,0 +1,8 @@
+# USDA source files. Large, and anyone can download them again.
+/raw/
+
+/node_modules/
+
+.env*
+
+.DS_Store
