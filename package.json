@@ -5,7 +5,7 @@
   "description": "Food list with nutrients per 100 g, built from USDA FoodData Central",
   "type": "module",
   "scripts": {
-    "build:foods": "node scripts/build-foods.mjs raw/usda/FoodData_Central_sr_legacy_food_json_2018-04.json raw/usda/surveyDownload.json dist",
+    "build:foods": "node scripts/build-foods.mjs raw/usda/FoodData_Central_sr_legacy_food_json_2018-04.json raw/usda/surveyDownload.json names dist",
     "copy": "node scripts/copy-foods.mjs"
   }
 }

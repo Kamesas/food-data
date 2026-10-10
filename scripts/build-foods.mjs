@@ -1,12 +1,15 @@
-// Builds dist/foods.en.json from the two USDA FoodData Central files.
-// Usage: node scripts/build-foods.mjs <sr-legacy.json> <fndds.json> <out-dir>
+// Builds dist/foods.en.json from the two USDA FoodData Central files, and one
+// dist/foods.<lang>.json for each names/<lang>.json.
+// Usage: node scripts/build-foods.mjs <sr-legacy.json> <fndds.json> <names-dir> <out-dir>
 import fs from "node:fs";
 import path from "node:path";
 
-const [srPath, fnddsPath, outDir] = process.argv.slice(2);
+const [srPath, fnddsPath, namesDir, outDir] = process.argv.slice(2);
 
-if (!srPath || !fnddsPath || !outDir) {
-  console.error("Usage: node scripts/build-foods.mjs <sr-legacy.json> <fndds.json> <out-dir>");
+if (!srPath || !fnddsPath || !namesDir || !outDir) {
+  console.error(
+    "Usage: node scripts/build-foods.mjs <sr-legacy.json> <fndds.json> <names-dir> <out-dir>",
+  );
   process.exit(1);
 }
 
@@ -78,17 +81,46 @@ const rows = [
 ].sort((a, b) => a.id - b.id);
 
 // One food per line keeps the file small and its git diffs readable.
-const json = `[\n${rows.map((row) => JSON.stringify(row)).join(",\n")}\n]\n`;
+const writeFoods = (lang, foodRows) => {
+  const outPath = path.join(outDir, `foods.${lang}.json`);
+  const json = `[\n${foodRows.map((row) => JSON.stringify(row)).join(",\n")}\n]\n`;
+
+  fs.writeFileSync(outPath, json);
+
+  return outPath;
+};
+
+const readNames = (filePath) =>
+  fs.existsSync(filePath) ? JSON.parse(fs.readFileSync(filePath, "utf8")) : {};
 
 fs.mkdirSync(outDir, { recursive: true });
-const outPath = path.join(outDir, "foods.en.json");
-fs.writeFileSync(outPath, json);
 
-console.log(`Wrote ${outPath}: ${rows.length} foods`);
+console.log(`Wrote ${writeFoods("en", rows)}: ${rows.length} foods`);
 console.log(`  sr: ${srUnique.length} (${srFoods.length - srUnique.length} duplicates of FNDDS skipped)`);
 console.log(`  fndds: ${fnddsFoods.length}`);
 console.log("Foods with null:");
 for (const key of KEYS) {
   const nullCount = rows.filter((row) => row[key] === null).length;
   console.log(`  ${key.padEnd(10)} ${nullCount}`);
+}
+
+// names/<lang>.json holds the translated names. names/<lang>.fixes.json holds hand
+// fixes, applied last, so a new translation run cannot undo them. A food without
+// a translated name keeps its English one.
+const langs = fs.existsSync(namesDir)
+  ? fs
+      .readdirSync(namesDir)
+      .map((name) => name.match(/^([a-z]+)\.json$/)?.[1])
+      .filter(Boolean)
+  : [];
+
+for (const lang of langs) {
+  const names = readNames(path.join(namesDir, `${lang}.json`));
+  const fixes = readNames(path.join(namesDir, `${lang}.fixes.json`));
+  const toName = (row) => fixes[row.id] ?? names[row.id] ?? row.name;
+
+  const translatedCount = rows.filter((row) => fixes[row.id] ?? names[row.id]).length;
+  const outPath = writeFoods(lang, rows.map((row) => ({ ...row, name: toName(row) })));
+
+  console.log(`Wrote ${outPath}: ${translatedCount} of ${rows.length} names translated`);
 }

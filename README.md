@@ -7,9 +7,13 @@ Work in progress. Only English is built so far: `dist/foods.en.json`.
 ## Build
 
 ```
-npm run build:foods          # raw/usda/*.json -> dist/foods.en.json
+npm run build:foods          # raw/usda/*.json + names/*.json -> dist/foods.<lang>.json
 npm run copy -- <app-dir>    # copy dist/foods.*.json into an app
 ```
+
+Translated names live in `names/<lang>.json` (id → name). Hand fixes go in
+`names/<lang>.fixes.json` and win over the translation. A food without a translated
+name keeps its English one.
 
 The USDA files are not in git. Download them into `raw/usda/` first (links below).
 
