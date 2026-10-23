@@ -53,6 +53,33 @@ const toOmega3 = (amounts) => {
   return roundValue(((epa ?? 0) + (dha ?? 0)) * GRAMS_TO_MILLIGRAMS);
 };
 
+const PIECE_PORTION = /^1\b(?!.*\bcups?\b).*\b(bar|candy|cone|cookie|popsicle|truffle)\b/i;
+const SWEET_PIECE_PORTION = /^1 piece\b/i;
+const SWEET_FOOD = /^(candies|candy|chocolate|.*ice cream|.*cookie)/i;
+const EGG_PORTION = /^1 large\b/i;
+const EGG_FOOD = /^Egg, whole/i;
+const SMALL_PORTION = /miniature|\bmini\b|fun size|bite|snack size/i;
+
+const toPortionText = (portion) =>
+  portion.portionDescription ?? `${portion.amount ?? ""} ${portion.modifier ?? ""}`.trim();
+
+const isPiecePortion = (food, text) =>
+  PIECE_PORTION.test(text) ||
+  (SWEET_FOOD.test(food.description) && SWEET_PIECE_PORTION.test(text)) ||
+  (EGG_FOOD.test(food.description) && EGG_PORTION.test(text));
+
+const toPieceGrams = (food) => {
+  const piece = (food.foodPortions ?? [])
+    .filter((portion) => isPiecePortion(food, toPortionText(portion)))
+    .sort(
+      (a, b) =>
+        SMALL_PORTION.test(toPortionText(a)) - SMALL_PORTION.test(toPortionText(b)) ||
+        (a.sequenceNumber ?? 0) - (b.sequenceNumber ?? 0),
+    )[0];
+
+  return piece ? roundValue(piece.gramWeight) : undefined;
+};
+
 const toRow = (food, type) => {
   const amounts = toAmounts(food);
   const row = { id: food.fdcId, type, name: food.description.trim() };
@@ -62,6 +89,9 @@ const toRow = (food, type) => {
     row[key] = amount === undefined ? null : roundValue(amount);
   }
   row.omega3 = toOmega3(amounts);
+
+  const pieceGrams = toPieceGrams(food);
+  if (pieceGrams) row.pieceGrams = pieceGrams;
 
   return row;
 };

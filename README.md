@@ -43,6 +43,7 @@ Each food is one object. All values are per 100 g.
 | `calcium`   | mg   |                                        |                85 |
 | `vitaminD`  | µg   | D2 + D3                                |             2,608 |
 | `omega3`    | mg   | EPA + DHA only                         |             1,976 |
+| `pieceGrams` | g  | one piece: bar, candy, cookie, cone, egg. Only on foods that have it |  |
 
 Values are rounded to 2 decimal places. Every `null` is in an `sr` food:
 FNDDS has no missing values.
