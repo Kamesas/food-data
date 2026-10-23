@@ -6,12 +6,13 @@ Two languages are built: `dist/foods.en.json` and `dist/foods.uk.json`.
 
 ## Contents
 
-13,124 foods in total:
+13,152 foods in total:
 
 | Type    | Count | What it is                       |
 | ------- | ----: | -------------------------------- |
 | `fndds` | 5,431 | cooked dishes (USDA FNDDS)       |
 | `sr`    | 7,693 | plain foods (USDA SR Legacy)     |
+| `own`   |    28 | our own foods (`own/foods.json`) |
 
 ## Files
 
@@ -20,6 +21,7 @@ Two languages are built: `dist/foods.en.json` and `dist/foods.uk.json`.
 | `dist/foods.<lang>.json` | All foods with names in that language, and nutrients. Built.   |
 | `names/uk.json`          | Translated Ukrainian names: `{ "<id>": "<name>" }`, all foods. |
 | `names/uk.fixes.json`    | Hand-fixed Ukrainian names for common foods. Win over the above. |
+| `own/foods.json`         | Our own foods. See "Own foods" below.                          |
 | `scripts/`               | Build and copy scripts.                                        |
 
 ## Fields
@@ -54,6 +56,16 @@ FNDDS has no missing values.
 - Different foods can share a Ukrainian name when the English names differ only in
   details that do not matter in Ukrainian. An app that hides repeated names shows
   only one of them, so a hand fix must not reuse an existing name.
+
+## Own foods
+
+Foods USDA does not have, mostly Ukrainian dairy with a common fat percent
+("Кефір, 2,5% жиру"). Each one copies the nutrients of a similar USDA food (`base`)
+and changes only the fat, and the calories with it (9 kcal per gram of fat). So the
+other numbers are close, not exact.
+
+Own ids start at 9,000,001, far above the USDA ids. Never reuse or change an id:
+diaries store foods by id.
 
 ## Build
 
