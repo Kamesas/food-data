@@ -13150,5 +13150,7 @@
 {"id":9000025,"type":"own","name":"Масло сливочное, 72,5% жирности","calories":640,"protein":0.85,"fat":72.5,"carb":0.06,"fiber":0,"iron":0.02,"magnesium":2,"calcium":24,"vitaminD":0,"omega3":0},
 {"id":9000026,"type":"own","name":"Масло сливочное, 73% жирности","calories":644,"protein":0.85,"fat":73,"carb":0.06,"fiber":0,"iron":0.02,"magnesium":2,"calcium":24,"vitaminD":0,"omega3":0},
 {"id":9000027,"type":"own","name":"Масло сливочное, 82,5% жирности","calories":746,"protein":0.85,"fat":82.5,"carb":0.06,"fiber":0,"iron":0.06,"magnesium":2,"calcium":21,"vitaminD":0.4,"omega3":26},
-{"id":9000028,"type":"own","name":"Масло сливочное, 83% жирности","calories":750,"protein":0.85,"fat":83,"carb":0.06,"fiber":0,"iron":0.06,"magnesium":2,"calcium":21,"vitaminD":0.4,"omega3":26}
+{"id":9000028,"type":"own","name":"Масло сливочное, 83% жирности","calories":750,"protein":0.85,"fat":83,"carb":0.06,"fiber":0,"iron":0.06,"magnesium":2,"calcium":21,"vitaminD":0.4,"omega3":26},
+{"id":9000029,"type":"own","name":"Молоко, безлактозное, 2,5% жирности","calories":55,"protein":3.36,"fat":2.5,"carb":4.9,"fiber":0,"iron":0,"magnesium":12,"calcium":126,"vitaminD":1.1,"omega3":0},
+{"id":9000030,"type":"own","name":"Айран, 1,5% жирности","calories":52,"protein":4.1,"fat":1.5,"carb":5.3,"fiber":0,"iron":0.06,"magnesium":13,"calcium":143,"vitaminD":0,"omega3":0}
 ]
