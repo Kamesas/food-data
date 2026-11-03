@@ -2,7 +2,7 @@
 
 A list of foods with their nutrients per 100 g. One JSON file per language.
 
-Two languages are built: `dist/foods.en.json` and `dist/foods.uk.json`.
+Three languages are built: `dist/foods.en.json`, `dist/foods.uk.json` and `dist/foods.ru.json`.
 
 ## Contents
 
@@ -21,6 +21,8 @@ Two languages are built: `dist/foods.en.json` and `dist/foods.uk.json`.
 | `dist/foods.<lang>.json` | All foods with names in that language, and nutrients. Built.   |
 | `names/uk.json`          | Translated Ukrainian names: `{ "<id>": "<name>" }`, all foods. |
 | `names/uk.fixes.json`    | Hand-fixed Ukrainian names for common foods. Win over the above. |
+| `names/ru.json`          | Translated Russian names, same shape as `names/uk.json`.       |
+| `names/ru.fixes.json`    | Hand-fixed Russian names. Win over the above.                  |
 | `own/foods.json`         | Our own foods. See "Own foods" below.                          |
 | `scripts/`               | Build and copy scripts.                                        |
 
