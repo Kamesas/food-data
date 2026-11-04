@@ -6,13 +6,13 @@ Three languages are built: `dist/foods.en.json`, `dist/foods.uk.json` and `dist/
 
 ## Contents
 
-13,154 foods in total:
+13,170 foods in total:
 
 | Type    | Count | What it is                       |
 | ------- | ----: | -------------------------------- |
 | `fndds` | 5,431 | cooked dishes (USDA FNDDS)       |
 | `sr`    | 7,693 | plain foods (USDA SR Legacy)     |
-| `own`   |    30 | our own foods (`own/foods.json`) |
+| `own`   |    46 | our own foods (`own/foods.json`) |
 
 ## Files
 
@@ -62,10 +62,18 @@ FNDDS has no missing values.
 
 ## Own foods
 
-Foods USDA does not have, mostly Ukrainian dairy with a common fat percent
-("Кефір, 2,5% жиру"). Each one copies the nutrients of a similar USDA food (`base`)
-and changes only the fat, and the calories with it (9 kcal per gram of fat). So the
-other numbers are close, not exact.
+Foods USDA does not have. Each one is one of three kinds:
+
+- `base` + `fat`: Ukrainian dairy with a common fat percent ("Кефір, 2,5% жиру").
+  It copies a similar USDA food and changes only the fat, and the calories with it
+  (9 kcal per gram of fat). So the other numbers are close, not exact.
+- `recipe`: a dish from USDA foods, `[[id, grams], ...]` ("Шаурма, з куркою").
+  Values are per 100 g of the raw total. A value is `null` when any ingredient
+  lacks it.
+- `label`: numbers from the maker's label, per 100 g ("Батончик Mars"). A label
+  has no minerals or vitamins, so those are `null`.
+
+`pieceGrams` is optional on any kind.
 
 Own ids start at 9,000,001, far above the USDA ids. Never reuse or change an id:
 diaries store foods by id.

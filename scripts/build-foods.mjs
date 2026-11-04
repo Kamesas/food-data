@@ -116,18 +116,60 @@ const KCAL_PER_GRAM_OF_FAT = 9;
 const ownFoods = JSON.parse(fs.readFileSync(OWN_FOODS_PATH, "utf8"));
 const usdaRowsById = new Map(usdaRows.map((row) => [row.id, row]));
 
-const toOwnRow = (own) => {
-  const base = usdaRowsById.get(own.base);
+const toUsdaRow = (id) => {
+  const row = usdaRowsById.get(id);
+  if (!row) throw new Error(`Own food refers to USDA id ${id}, which is not in the list`);
+
+  return row;
+};
+
+// A USDA food with another fat percent. Calories move with the fat.
+const toBaseNutrients = (own) => {
+  const { id, type, name, pieceGrams, ...base } = toUsdaRow(own.base);
 
   return {
     ...base,
-    id: own.id,
-    type: "own",
-    name: own.en,
     fat: own.fat,
     calories: Math.round(base.calories + (own.fat - base.fat) * KCAL_PER_GRAM_OF_FAT),
   };
 };
+
+// A dish from USDA foods, given as [[id, grams], ...]. Values are per 100 g of the
+// raw total, so water lost in cooking is not counted. A value is null when any
+// ingredient lacks it: a sum without it would look real but be too low.
+const toRecipeNutrients = (own) => {
+  const totalGrams = own.recipe.reduce((sum, [, grams]) => sum + grams, 0);
+  const ingredients = own.recipe.map(([id, grams]) => [toUsdaRow(id), grams]);
+
+  return Object.fromEntries(
+    KEYS.map((key) => {
+      const hasAllValues = ingredients.every(([row]) => row[key] !== null);
+      const sum = ingredients.reduce((total, [row, grams]) => total + (row[key] * grams) / 100, 0);
+
+      return [key, hasAllValues ? roundValue((sum / totalGrams) * 100) : null];
+    }),
+  );
+};
+
+// Numbers from the maker's label. A label gives no minerals or vitamins, so
+// those stay null.
+const toLabelNutrients = (own) =>
+  Object.fromEntries(KEYS.map((key) => [key, own.label[key] ?? null]));
+
+const toOwnNutrients = (own) => {
+  if (own.recipe) return toRecipeNutrients(own);
+  if (own.label) return toLabelNutrients(own);
+
+  return toBaseNutrients(own);
+};
+
+const toOwnRow = (own) => ({
+  id: own.id,
+  type: "own",
+  name: own.en,
+  ...toOwnNutrients(own),
+  ...(own.pieceGrams && { pieceGrams: own.pieceGrams }),
+});
 
 const rows = [...usdaRows, ...ownFoods.map(toOwnRow)].sort((a, b) => a.id - b.id);
 
