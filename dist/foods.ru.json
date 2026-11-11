@@ -13162,11 +13162,12 @@
 {"id":9000037,"type":"own","name":"Шаурма, с курицей","calories":176.31,"protein":11.82,"fat":8.15,"carb":13.19,"fiber":0.97,"iron":0.71,"magnesium":18.6,"calcium":37.49,"vitaminD":null,"omega3":null,"pieceGrams":400},
 {"id":9000038,"type":"own","name":"Шаурма, со свининой","calories":201.4,"protein":10.64,"fat":11.48,"carb":13.19,"fiber":0.97,"iron":0.7,"magnesium":17.7,"calcium":38.7,"vitaminD":null,"omega3":null,"pieceGrams":400},
 {"id":9000039,"type":"own","name":"Шаурма, с телятиной","calories":174.8,"protein":10.83,"fat":8.48,"carb":13.19,"fiber":0.97,"iron":0.67,"magnesium":18.3,"calcium":34.77,"vitaminD":null,"omega3":null,"pieceGrams":400},
-{"id":9000040,"type":"own","name":"Шаурма, вегетарианская (нут и овощи)","calories":144.81,"protein":3.78,"fat":7.11,"carb":16.76,"fiber":2.64,"iron":0.77,"magnesium":19.35,"calcium":40.62,"vitaminD":null,"omega3":null,"pieceGrams":430},
+{"id":9000040,"type":"own","name":"Шаурма, вегетарианская (нут, грибы, овощи)","calories":141.71,"protein":3.77,"fat":7.17,"carb":15.96,"fiber":2.31,"iron":0.67,"magnesium":17.33,"calcium":37.17,"vitaminD":null,"omega3":null,"pieceGrams":440},
 {"id":9000041,"type":"own","name":"Лаваш, с сыром и зеленью","calories":275.4,"protein":13.23,"fat":9.02,"carb":34.72,"fiber":1.65,"iron":1.53,"magnesium":29.3,"calcium":275.4,"vitaminD":null,"omega3":null},
 {"id":9000042,"type":"own","name":"Тортилья, с курицей","calories":220.55,"protein":16.59,"fat":10.19,"carb":14.53,"fiber":1.2,"iron":1.48,"magnesium":21.78,"calcium":104.94,"vitaminD":0.09,"omega3":12.06,"pieceGrams":255},
 {"id":9000043,"type":"own","name":"Тортилья, с яйцом, ветчиной и сыром","calories":225.67,"protein":13.52,"fat":11.64,"carb":15.76,"fiber":1.24,"iron":1.75,"magnesium":17.88,"calcium":154.92,"vitaminD":1.1,"omega3":17.92,"pieceGrams":240},
 {"id":9000044,"type":"own","name":"Мороженое, в вафельном стаканчике","calories":274.2,"protein":4.19,"fat":14.8,"carb":30.81,"fiber":0.45,"iron":0.83,"magnesium":13.25,"calcium":103.2,"vitaminD":0.26,"omega3":4.25,"pieceGrams":80},
 {"id":9000045,"type":"own","name":"Батончик Mars (Марс)","calories":448,"protein":4.4,"fat":16.7,"carb":69.3,"fiber":null,"iron":null,"magnesium":null,"calcium":null,"vitaminD":null,"omega3":null,"pieceGrams":51},
-{"id":9000046,"type":"own","name":"Шоколадное яйцо Kinder Surprise (Киндер Сюрприз)","calories":552,"protein":8.1,"fat":34.2,"carb":52.3,"fiber":null,"iron":null,"magnesium":null,"calcium":null,"vitaminD":null,"omega3":null,"pieceGrams":20}
+{"id":9000046,"type":"own","name":"Шоколадное яйцо Kinder Surprise (Киндер Сюрприз)","calories":552,"protein":8.1,"fat":34.2,"carb":52.3,"fiber":null,"iron":null,"magnesium":null,"calcium":null,"vitaminD":null,"omega3":null,"pieceGrams":20},
+{"id":9000047,"type":"own","name":"Печень трески, консервированная","calories":613,"protein":4.2,"fat":65.7,"carb":1.2,"fiber":null,"iron":null,"magnesium":null,"calcium":null,"vitaminD":null,"omega3":null}
 ]
