@@ -13170,5 +13170,7 @@
 {"id":9000045,"type":"own","name":"Candies, MARS bar","calories":448,"protein":4.4,"fat":16.7,"carb":69.3,"fiber":null,"iron":null,"magnesium":null,"calcium":null,"vitaminD":null,"omega3":null,"pieceGrams":51},
 {"id":9000046,"type":"own","name":"Candies, KINDER Surprise egg","calories":552,"protein":8.1,"fat":34.2,"carb":52.3,"fiber":null,"iron":null,"magnesium":null,"calcium":null,"vitaminD":null,"omega3":null,"pieceGrams":20},
 {"id":9000047,"type":"own","name":"Cod liver, canned in own oil","calories":613,"protein":4.2,"fat":65.7,"carb":1.2,"fiber":null,"iron":null,"magnesium":null,"calcium":null,"vitaminD":null,"omega3":null},
-{"id":9000048,"type":"own","name":"Vinaigrette salad","calories":91.06,"protein":1.47,"fat":5.01,"carb":10.92,"fiber":2.22,"iron":0.66,"magnesium":17.11,"calcium":17.58,"vitaminD":null,"omega3":null}
+{"id":9000048,"type":"own","name":"Vinaigrette salad","calories":91.06,"protein":1.47,"fat":5.01,"carb":10.92,"fiber":2.22,"iron":0.66,"magnesium":17.11,"calcium":17.58,"vitaminD":null,"omega3":null},
+{"id":9000049,"type":"own","name":"Cookies, OREO sandwich","calories":483,"protein":5.2,"fat":19.6,"carb":71.9,"fiber":null,"iron":null,"magnesium":null,"calcium":null,"vitaminD":null,"omega3":null,"pieceGrams":11},
+{"id":9000050,"type":"own","name":"Salmon, lightly salted","calories":201,"protein":17.8,"fat":14.4,"carb":0,"fiber":null,"iron":null,"magnesium":null,"calcium":null,"vitaminD":null,"omega3":null}
 ]

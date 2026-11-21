@@ -46,5 +46,7 @@
 {"id":9000045,"label":{"calories":448,"protein":4.4,"fat":16.7,"carb":69.3},"pieceGrams":51,"en":"Candies, MARS bar","uk":"Батончик Mars (Марс)","ru":"Батончик Mars (Марс)"},
 {"id":9000046,"label":{"calories":552,"protein":8.1,"fat":34.2,"carb":52.3},"pieceGrams":20,"en":"Candies, KINDER Surprise egg","uk":"Шоколадне яйце Kinder Surprise (Кіндер Сюрприз)","ru":"Шоколадное яйцо Kinder Surprise (Киндер Сюрприз)"},
 {"id":9000047,"label":{"calories":613,"protein":4.2,"fat":65.7,"carb":1.2},"en":"Cod liver, canned in own oil","uk":"Печінка тріски, консервована","ru":"Печень трески, консервированная"},
-{"id":9000048,"recipe":[[169146,70],[170440,50],[170394,30],[169279,30],[170104,10],[2709795,6],[171017,10]],"en":"Vinaigrette salad","uk":"Салат вінегрет","ru":"Салат винегрет"}
+{"id":9000048,"recipe":[[169146,70],[170440,50],[170394,30],[169279,30],[170104,10],[2709795,6],[171017,10]],"en":"Vinaigrette salad","uk":"Салат вінегрет","ru":"Салат винегрет"},
+{"id":9000049,"label":{"calories":483,"protein":5.2,"fat":19.6,"carb":71.9},"pieceGrams":11,"en":"Cookies, OREO sandwich","uk":"Печиво Oreo (Орео)","ru":"Печенье Oreo (Орео)"},
+{"id":9000050,"label":{"calories":201,"protein":17.8,"fat":14.4,"carb":0},"en":"Salmon, lightly salted","uk":"Лосось, солоний (слабосолений)","ru":"Лосось, соленый (слабосоленый)"}
 ]

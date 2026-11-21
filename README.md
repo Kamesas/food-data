@@ -6,13 +6,13 @@ Three languages are built: `dist/foods.en.json`, `dist/foods.uk.json` and `dist/
 
 ## Contents
 
-13,171 foods in total:
+13,174 foods in total:
 
 | Type    | Count | What it is                       |
 | ------- | ----: | -------------------------------- |
 | `fndds` | 5,431 | cooked dishes (USDA FNDDS)       |
 | `sr`    | 7,693 | plain foods (USDA SR Legacy)     |
-| `own`   |    47 | our own foods (`own/foods.json`) |
+| `own`   |    50 | our own foods (`own/foods.json`) |
 
 ## Files
 
